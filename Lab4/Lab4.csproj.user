@@ -11,6 +11,6 @@
     <WebStackScaffolding_DbContextTypeFullName>Lab4.Data.SchoolCommunityContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-    <NameOfLastUsedPublishProfile>tolulopelab4app - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Tolulope\source\repos\Lab4\Lab4\Properties\PublishProfiles\tolulopelab4app - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

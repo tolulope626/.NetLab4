@@ -22,6 +22,7 @@ namespace Lab4.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Students.ToListAsync());
         }
 
@@ -34,6 +35,7 @@ namespace Lab4.Controllers
             }
 
             var student = await _context.Students
+                .Include(s => s.CommunityMemberships)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {

@@ -25,7 +25,7 @@
         @foreach (var item in Model.Communities)
         {
             string selectedRow = "";
-            if (item.Id.Equals(ViewData["CommunityId"]?.ToString()) == true)
+            if (item.Id.Equals(ViewData["CommunityId"]) == true)
             {
                 selectedRow = "success";
             }
@@ -47,14 +47,14 @@
     </tbody>
 </table>
 
-@if (Model.Students != null)
+@if (Model.CommunityMemberships != null)
 {
-    <h1>
+    <h2>
         Members of the Community
-    </h1>
+    </h2>
     <table class="table">
         <tr>
-            @if (Model.Students.Count() > 0)
+            @if (Model.CommunityMemberships.Count() > 0)
             {
                 <th>  Name </th>
             }
@@ -63,11 +63,15 @@
                 <th> No car record exist </th>
             }
         </tr>
-        @foreach (var item in Model.Students)
+        @foreach (var item in Model.CommunityMemberships)
         {
             <tr>
                 <td>
-                    @item.FullName
+                    @if(Model.Students != null)
+                    {
+                        @item.Student.FullName
+                    }
+
                 </td>
             </tr>
         }
