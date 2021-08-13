@@ -1,0 +1,21 @@
+﻿@model Lab4.Models.Advertisement
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Show ads for community </h1>
+
+<p>
+    <a asp-action="Create">upload New</a>
+</p>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

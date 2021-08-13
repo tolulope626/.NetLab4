@@ -8,6 +8,11 @@ namespace Lab4.Models
 {
     public class Advertisement : Community
     {
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "File Name")]
+        public String FileName { get; set; }
+        [Display(Name = "Community ads")]
         public Advertisement advertisement { get; set; }
     }
 }

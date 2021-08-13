@@ -132,6 +132,66 @@ namespace Lab4.Controllers
             }
             return View(student);
         }
+        public async Task<IActionResult> EditMembership(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new StudentMembershipViewModel ();
+            viewModel.Student = await _context.Students
+                .Include(s => s.CommunityMemberships).ThenInclude( s => s.Community)
+                .FirstOrDefaultAsync(m => m.Id == Id);
+
+           
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+            viewModel.Memberships = (IEnumerable<CommunityMembershipViewModel>)_context.CommunityMemberships;
+
+
+
+            return View(viewModel);
+        }
+
+        /*
+        public async Task<IActionResult> AddMembership(int? sId, String cId)
+        {
+            
+            if (Id == null)
+            {
+                return NotFound();
+            }
+           
+
+            var student = await _context.Students.FindAsync(Id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+            
+        }
+        
+        public async Task<IActionResult> RemoveMembership(String Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students.FindAsync(Id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+
+        */
 
 
         // GET: Students/Delete/5
