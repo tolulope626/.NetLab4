@@ -25,7 +25,7 @@ namespace Lab4.Controllers
         {
             var viewModel = new CommunityViewModel();
             viewModel.Communities = await _context.Communities
-                  .Include(i => i.CommunityMemberships)
+                  .Include(i => i.CommunityMemberships ).ThenInclude(i=> i.Student)
                   .AsNoTracking()
                   .OrderBy(i => i.Title)
                   .ToListAsync();
@@ -34,7 +34,7 @@ namespace Lab4.Controllers
             {
                 ViewData["CommunityId"] = Id;
                 viewModel.CommunityMemberships = viewModel.Communities.Where(
-                    x => x.Id == Id).Single().CommunityMemberships;
+                    x => (x.Id == Id)).Single().CommunityMemberships;
                 
             }
 
