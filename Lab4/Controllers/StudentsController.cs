@@ -139,20 +139,37 @@ namespace Lab4.Controllers
                 return NotFound();
             }
 
-            var viewModel = new StudentMembershipViewModel ();
+            var viewModel = new StudentMembershipViewModel();
             viewModel.Student = await _context.Students
-                .Include(s => s.CommunityMemberships).ThenInclude( s => s.Community)
+                .Include(s => s.CommunityMemberships).ThenInclude(s => s.Community)
                 .FirstOrDefaultAsync(m => m.Id == Id);
-
-           
 
             if (viewModel == null)
             {
                 return NotFound();
             }
-            viewModel.Memberships = (IEnumerable<CommunityMembershipViewModel>)_context.CommunityMemberships;
 
+            var communities = _context.Communities;
+            var list = new List<CommunityMembershipViewModel>();
 
+            foreach (var com in communities)
+            {
+                var mem = new CommunityMembershipViewModel();
+                mem.CommunityId = com.Id;
+                mem.Title = com.Title;
+                if (com.CommunityMemberships != null)
+                {
+                    mem.IsMember = true;
+                }
+                else
+                {
+                    mem.IsMember = false;
+                }
+
+                list.Add(mem);
+
+            }
+            viewModel.Memberships = list;
 
             return View(viewModel);
         }
@@ -229,3 +246,5 @@ namespace Lab4.Controllers
         }
     }
 }
+
+

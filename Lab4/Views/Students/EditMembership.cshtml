@@ -6,7 +6,8 @@
 
 <h1>Edit</h1>
 <h2>Student</h2>
-<div>   
+<hr />
+<div>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Student.FullName)
@@ -20,25 +21,26 @@
 <div>
     @if (Model.Memberships != null)
     {
-       
-        <table class="table">
-            
-            @foreach (var item in Model.Memberships)
+        <dl class="row">
+            @foreach (var item in Model.Memberships.OrderBy(i => i.IsMember))
             {
-            <tr>
-                <td> @item.Title</td>
+                <dt class="col-sm-2"> @item.Title</dt>
                 @if (item.IsMember == true)
                 {
-                    <td asp-route-id="@item.CommunityId"> Unregister</td>
+                    <a class="col-sm-10" asp-action="RemoveMembership" asp-route-id="@item.CommunityId"> Unregister</a>
                 }
                 else
                 {
-                    <td asp-route-id="@item.CommunityId"> Register</td>
+                    <a class="col-sm-10" asp-action="AddMembership" asp-route-id="@item.CommunityId"> Register</a>
                 }
-            </tr>
             }
-        </table>
+        </dl>
+
     }
 
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
