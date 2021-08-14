@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Lab4.Models
 {
-    public class Advertisement : Community
+    public class Advertisement
     {
         public int AdvertisementId { get; set; }
 
@@ -19,5 +19,6 @@ namespace Lab4.Models
         [Url]
         public String Url { get; set; }
 
+        public Community Community { get; set; }
     }
 }

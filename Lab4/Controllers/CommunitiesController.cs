@@ -236,11 +236,12 @@ namespace Lab4.Controllers
             {
                 // create the blob to hold the data
                 var blockBlob = containerClient.GetBlobClient(file.FileName);
-
+                
                 if (await blockBlob.ExistsAsync())
                 {
                     await blockBlob.DeleteAsync();
                 }
+                
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -259,8 +260,8 @@ namespace Lab4.Controllers
                 var image = new Advertisement();
                 image.Url = blockBlob.Uri.AbsoluteUri;
                 image.FileName = file.FileName;
-
-                _context.Communities.Add(image);
+                
+                _context.Advertisements.Add(image);
                 _context.SaveChanges();
             }
             catch (RequestFailedException)
