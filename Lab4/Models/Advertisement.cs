@@ -13,6 +13,9 @@ namespace Lab4.Models
         [Display(Name = "File Name")]
         public String FileName { get; set; }
         [Display(Name = "Community ads")]
-        public Advertisement advertisement { get; set; }
+        [Required]
+        [Url]
+        public String Url { get; set; }
+        
     }
 }

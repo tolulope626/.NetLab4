@@ -1,10 +1,10 @@
-﻿@model Lab4.Models.Advertisement
+﻿@model Lab4.Models.ViewModels.AdsViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Advertisement";
 }
 
-<h1>Show ads for community </h1>
+<h1>Show ads for community @Html.DisplayFor(model => model.Community.Title)</h1> 
 
 <p>
     <a asp-action="Create">upload New</a>

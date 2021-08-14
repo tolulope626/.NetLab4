@@ -8,17 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using Lab4.Data;
 using Lab4.Models;
 using Lab4.Models.ViewModels;
+using Azure.Storage.Blobs;
 
 namespace Lab4.Controllers
 {
     public class CommunitiesController : Controller
     {
         private readonly SchoolCommunityContext _context;
+        private readonly BlobServiceClient _blobServiceClient;
 
-        public CommunitiesController(SchoolCommunityContext context)
+        private readonly string containerName = "adImage";
+
+
+        public CommunitiesController(SchoolCommunityContext context, BlobServiceClient blobServiceClient)
         {
             _context = context;
+            _blobServiceClient = blobServiceClient;
         }
+
+       
 
         // GET: Communities
         public async Task<IActionResult> Index(string Id)
@@ -165,6 +173,41 @@ namespace Lab4.Controllers
         private bool CommunityExists(string id)
         {
             return _context.Communities.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> Advertisement(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AdsViewModel();
+            viewModel.Community = await _context.Communities
+                .Include(s => s.CommunityMemberships)
+                .FirstOrDefaultAsync(m => m.Id == Id);
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+            var communities = _context.Communities;
+            var list = new List<Advertisement>();
+
+            foreach (var com in communities)
+            {
+                var mem = new Advertisement();
+                mem.Id = com.Id;
+                mem.Title = com.Title;
+                list.Add(mem);
+
+            }
+            viewModel.Advertisements = list;
+
+            return View(viewModel);
+
+
         }
     }
 }
