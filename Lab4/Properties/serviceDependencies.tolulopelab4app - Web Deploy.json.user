@@ -1,11 +1,25 @@
 {
   "dependencies": {
+    "storage1": {
+      "restored": true,
+      "restoreTime": "2021-08-14T07:31:08.2591236Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2021-06-26T08:12:09.8967692Z"
     }
   },
   "parameters": {
+    "storage1.resourceGroupName": {
+      "Name": "storage1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "Tolulopelab5"
+    },
+    "storage1.subscriptionId": {
+      "Name": "storage1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5f018bcd-c375-4aaf-b9fd-c5fda8c44aba"
+    },
     "mssql1.subscriptionId": {
       "Name": "mssql1.subscriptionId",
       "Type": "subscription",

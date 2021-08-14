@@ -174,3 +174,13 @@ C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Lab4.dll
 C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\ref\Lab4.dll
 C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Lab4.pdb
 C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Lab4.genruntimeconfig.cache
+C:\Users\Tolulope\source\repos\Lab4\Lab4\bin\Release\net5.0\Azure.Core.dll
+C:\Users\Tolulope\source\repos\Lab4\Lab4\bin\Release\net5.0\Azure.Storage.Blobs.dll
+C:\Users\Tolulope\source\repos\Lab4\Lab4\bin\Release\net5.0\Azure.Storage.Common.dll
+C:\Users\Tolulope\source\repos\Lab4\Lab4\bin\Release\net5.0\System.Memory.Data.dll
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Communities\Advertisement.cshtml.g.cs
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Communities\Remove.cshtml.g.cs
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Communities\Upload.cshtml.g.cs
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Communities\UploadAd.cshtml.g.cs
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Communities\UploadF.cshtml.g.cs
+C:\Users\Tolulope\source\repos\Lab4\Lab4\obj\Release\net5.0\Razor\Views\Students\EditMembership.cshtml.g.cs

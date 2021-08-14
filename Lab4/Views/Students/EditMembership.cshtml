@@ -19,24 +19,24 @@
 </div>
 
 @{string sid = Html.ValueFor(model => model.Student.Id);
+
 }
+
 <div>
     @if (Model.Memberships != null)
     {
     <dl class="row">
-        @foreach (var item in Model.Memberships.OrderBy(i => i.IsMember))
+        @foreach (var item in Model.Memberships.OrderBy(i => i.Title))
         {
-
-            <dt class="col-sm-2"> @item.Title</dt>
             @if (item.IsMember == true)
-            {
+            {<dt class="col-sm-2"> @item.Title</dt>
 
-                <a class="col-sm-10" asp-action="RemoveMembership" asp-route-id="@item.CommunityId,@sid" id="@sid" name="@item.CommunityId"> Unregister</a>
-                <input type="hidden" name="@item.CommunityId" id="@sid" />
+                <a class="col-sm-10" asp-action="RemoveMembership" asp-route-id="@item.CommunityId,@sid" > Unregister</a>
+                <input type="hidden"  id="@sid" />
 
             }
             else
-            {
+            { <dt class="col-sm-2"> @item.Title</dt>
                 <a class="col-sm-10" asp-action="AddMembership" asp-route-id="@item.CommunityId,@sid" id="@sid" name="@item.CommunityId"> Register</a>
                 <input type="hidden" name="@item.CommunityId" id="@sid" />
             }
