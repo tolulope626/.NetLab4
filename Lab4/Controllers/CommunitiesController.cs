@@ -9,6 +9,9 @@ using Lab4.Data;
 using Lab4.Models;
 using Lab4.Models.ViewModels;
 using Azure.Storage.Blobs;
+using Azure;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Lab4.Controllers
 {
@@ -194,20 +197,78 @@ namespace Lab4.Controllers
 
             var communities = _context.Communities;
             var list = new List<Advertisement>();
-
-            foreach (var com in communities)
-            {
-                var mem = new Advertisement();
-                mem.Id = com.Id;
-                mem.Title = com.Title;
-                list.Add(mem);
-
-            }
             viewModel.Advertisements = list;
 
             return View(viewModel);
 
+        }
 
+        public async Task<IActionResult> UploadAd(string Id)
+        {
+            var viewModel = new FileInputViewModel();
+            var communities = await _context.Communities.FindAsync(Id);
+            viewModel.CommunityId = communities.Id;
+            viewModel.CommunityTitle = communities.Title;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadF(IFormFile file)
+        {
+
+            BlobContainerClient containerClient;
+            // Create the container and return a container client object
+            try
+            {
+                containerClient = await _blobServiceClient.CreateBlobContainerAsync(containerName);
+                // Give access to public
+                containerClient.SetAccessPolicy(Azure.Storage.Blobs.Models.PublicAccessType.BlobContainer);
+            }
+            catch (RequestFailedException)
+            {
+                containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            }
+
+
+            try
+            {
+                // create the blob to hold the data
+                var blockBlob = containerClient.GetBlobClient(file.FileName);
+
+                if (await blockBlob.ExistsAsync())
+                {
+                    await blockBlob.DeleteAsync();
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    // copy the file data into memory
+                    await file.CopyToAsync(memoryStream);
+
+                    // navigate back to the beginning of the memory stream
+                    memoryStream.Position = 0;
+
+                    // send the file to the cloud
+                    await blockBlob.UploadAsync(memoryStream);
+                    memoryStream.Close();
+                }
+
+                // add the photo to the database if it uploaded successfully
+                var image = new Advertisement();
+                image.Url = blockBlob.Uri.AbsoluteUri;
+                image.FileName = file.FileName;
+
+                _context.Communities.Add(image);
+                _context.SaveChanges();
+            }
+            catch (RequestFailedException)
+            {
+                View("Error");
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

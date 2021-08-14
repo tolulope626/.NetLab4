@@ -1,0 +1,29 @@
+﻿@model Lab4.Models.ViewModels.FileInputViewModel
+@{
+    ViewData["Title"] = "Upload";
+    var cid = Html.ValueFor(model => model.CommunityId);
+}
+
+<h1>Upload</h1>
+
+<h4>Upload an add for community @Html.DisplayFor(model => model.CommunityTitle)</h4>
+<hr />
+<div class="row">
+    @if (Model.File != null)
+    {
+        <p>File uploaded succesfully</p>
+    }
+    else
+    {
+        <p>File failed to upload</p>
+    }
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

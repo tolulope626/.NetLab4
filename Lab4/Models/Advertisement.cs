@@ -8,14 +8,16 @@ namespace Lab4.Models
 {
     public class Advertisement : Community
     {
+        public int AdvertisementId { get; set; }
+
         [Required]
         [StringLength(50)]
         [Display(Name = "File Name")]
         public String FileName { get; set; }
-        [Display(Name = "Community ads")]
+
         [Required]
         [Url]
         public String Url { get; set; }
-        
+
     }
 }
