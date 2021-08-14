@@ -174,41 +174,69 @@ namespace Lab4.Controllers
             return View(viewModel);
         }
 
-        /*
-        public async Task<IActionResult> AddMembership(int? sId, String cId)
+        public async Task<IActionResult> GetStudentID(int? id)
         {
-            
-            if (Id == null)
+            Student students = await _context.Students.FindAsync(id);
+            if (students == null)
             {
                 return NotFound();
             }
-           
+            return Ok(students);
+        }
 
-            var student = await _context.Students.FindAsync(Id);
-            if (student == null)
+        public async Task<IActionResult> GetCommunityID(string id)
+        {
+            Community communities = await _context.Communities.FindAsync(id);
+            if (communities == null)
             {
                 return NotFound();
             }
-            return View(student);
-            
+            return Ok(communities);
+        }
+
+        
+        public async Task<IActionResult> AddMembership(string Id)
+        {
+
+            string[] ID = Id.Split(',');
+            var cid = ID[0];
+            var sid = ID[1];
+
+
+            if ((Id != null) && (sid != null))
+            {
+                var communityMembership = new CommunityMembership();
+                communityMembership.CommunityId = cid;
+                communityMembership.StudentId = Convert.ToInt32(sid);
+
+                _context.CommunityMemberships.Add(communityMembership);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
         
-        public async Task<IActionResult> RemoveMembership(String Id)
+
+        public async Task<IActionResult> RemoveMembership(string Id)
         {
-            if (Id == null)
+            string[] ID = Id.Split(',');
+            var cid = ID[0];
+            var sid = ID[1];
+                        
+           
+            if ((Id != null) && (sid != null))
             {
-                return NotFound();
+                var communityMembership = await _context.CommunityMemberships.Include(i=> i.Community).FirstOrDefaultAsync(i => i.StudentId.ToString() == sid);
+                
+                _context.CommunityMemberships.Remove(communityMembership);
             }
 
-            var student = await _context.Students.FindAsync(Id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return View(student);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        */
+        
 
 
         // GET: Students/Delete/5
